@@ -1,8 +1,7 @@
 package com.snulife.demo.survey.model
 
+import com.snulife.demo.model.BaseTimeEntity
 import com.snulife.demo.survey.model.enums.ExperienceDegree
-import org.springframework.data.annotation.CreatedDate
-import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -27,10 +26,8 @@ data class SurveyResult(
   @Column(name = "grade", length = 20)
   var grade: String,
 
-  @CreatedDate
-  var created: LocalDateTime,
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   var id: Long? = null,
-)
+) : BaseTimeEntity()
