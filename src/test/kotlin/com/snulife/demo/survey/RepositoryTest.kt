@@ -83,7 +83,5 @@ class RepositoryTest(@Autowired val surveyResultRepository: SurveyResultReposito
     then(s.grade).isEqualTo(data.grade)
     then(s.major).isEqualTo(data.major)
     then(s.os).isEqualTo(os)
-
   }
-
 }
