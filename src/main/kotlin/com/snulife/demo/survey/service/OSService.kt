@@ -1,6 +1,7 @@
 package com.snulife.demo.survey.service
 
 import com.snulife.demo.survey.dto.OSCreateRequestDto
+import com.snulife.demo.survey.dto.OSResponseDto
 import com.snulife.demo.survey.model.OS
 import com.snulife.demo.survey.repository.OSRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,7 +20,7 @@ class OSService {
       .id
   }
 
-  fun getAll(): List<OS> {
-    return osRepository.findAll()
+  fun getAll(): List<OSResponseDto> {
+    return osRepository.findAll().map { OSResponseDto(it) }
   }
 }
