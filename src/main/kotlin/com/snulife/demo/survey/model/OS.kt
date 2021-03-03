@@ -12,7 +12,7 @@ data class OS(
   var description: String,
 
   @Column(name = "price", nullable = true)
-  var price: Int,
+  var price: Int? = null,
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
