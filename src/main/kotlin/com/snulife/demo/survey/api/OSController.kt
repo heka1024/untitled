@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/os")
 class OSController(private val osService: OSService) {
-  @GetMapping("/")
+  @GetMapping("")
   fun getAll(): List<OSResponseDto> {
     return osService.getAll()
   }
