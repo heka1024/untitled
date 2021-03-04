@@ -1,5 +1,6 @@
 package com.snulife.demo.survey
 
+import com.snulife.demo.survey.dto.OSCreateRequestDto
 import com.snulife.demo.survey.model.OS
 import com.snulife.demo.survey.model.SurveyResult
 import com.snulife.demo.survey.model.enums.ExperienceDegree
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
@@ -21,6 +23,24 @@ class RepositoryTest(@Autowired val surveyResultRepository: SurveyResultReposito
   fun cleanup() {
     surveyResultRepository.deleteAll()
     osRepository.deleteAll()
+  }
+
+  @Test
+  fun `dto 테스트`() {
+    // given
+    val x = OSCreateRequestDto(
+      name="a",
+      description = "b",
+      price = 300
+    )
+
+    // when
+    val y = x.toEntity()
+
+    // then
+    then(y.name).isEqualTo("a")
+    then(y.description).isEqualTo("b")
+
   }
 
   @Test

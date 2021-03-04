@@ -1,5 +1,6 @@
 package com.snulife.demo.survey
 
+import com.snulife.demo.survey.dto.OSCreateRequestDto
 import com.snulife.demo.survey.model.OS
 import com.snulife.demo.survey.model.SurveyResult
 import com.snulife.demo.survey.model.enums.ExperienceDegree
@@ -22,6 +23,27 @@ class OSServiceTest {
 
   @Mock
   private lateinit var osRepository: OSRepository
+
+  @Test
+  fun `저장 잘 되어야 함`() {
+    // given
+    val name = "우분투"
+    val description = "오픈소스"
+    val price = 3000
+
+    val req = OSCreateRequestDto(name=name, description=description, price=price)
+    val id = osService.save(req)
+
+    // when
+    println(osRepository.findAll())
+    val os = osRepository.findAll()[0]
+
+    // then
+    then(os.id).isEqualTo(id)
+    then(os.name).isEqualTo(name)
+    then(os.price).isEqualTo(price)
+    then(os.description).isEqualTo(description)
+  }
 
   @Test
   fun `결과 생성`() {
