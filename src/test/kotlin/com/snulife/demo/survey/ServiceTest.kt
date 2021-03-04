@@ -1,6 +1,8 @@
 package com.snulife.demo.survey
 
 import com.snulife.demo.survey.model.OS
+import com.snulife.demo.survey.model.SurveyResult
+import com.snulife.demo.survey.model.enums.ExperienceDegree
 import com.snulife.demo.survey.repository.OSRepository
 import com.snulife.demo.survey.repository.SurveyResultRepository
 import com.snulife.demo.survey.service.OSService
@@ -39,5 +41,67 @@ class OSServiceTest {
     then(rs.size).isEqualTo(1)
     then(rs[0].name).isEqualTo(os1.name)
     then(rs[0].description).isEqualTo(os1.description)
+  }
+}
+
+@ExtendWith(MockitoExtension::class)
+class SurveyServiceTest {
+  @InjectMocks
+  private val surveyService = SurveyService()
+
+  @Mock
+  private lateinit var surveyResultRepository: SurveyResultRepository
+
+  @Test
+  fun `간단한 설문 및 결과`() {
+    // given
+    val survey = SurveyResult(
+      python = ExperienceDegree.VERY_LOW,
+      rdb = ExperienceDegree.VERY_LOW,
+      programming = ExperienceDegree.HIGH,
+      major = "지역",
+      grade = "2학년",
+    )
+    val xs = listOf(survey)
+
+    given(surveyResultRepository.findAll()).willReturn(xs)
+
+    // when
+    val rs = surveyService.getAll()
+
+    // then
+    then(rs.size).isEqualTo(1)
+    then(rs[0].python).isEqualTo(survey.python)
+    then(rs[0].major).isEqualTo(survey.major)
+  }
+
+  @Test
+  fun `os가 결합된 설문 및 결과`() {
+    // given
+    val os1 = OS(
+      name = "우분투",
+      description = "오픈소스",
+    )
+
+    val survey = SurveyResult(
+      python = ExperienceDegree.VERY_LOW,
+      rdb = ExperienceDegree.VERY_LOW,
+      programming = ExperienceDegree.HIGH,
+      major = "지역",
+      grade = "2학년",
+      os = os1,
+    )
+    val xs = listOf(survey)
+
+    given(surveyResultRepository.findAll()).willReturn(xs)
+
+    // when
+    val rs = surveyService.getAll()
+
+    // then
+    then(rs.size).isEqualTo(1)
+    then(rs[0].python).isEqualTo(survey.python)
+    then(rs[0].major).isEqualTo(survey.major)
+    then(rs[0].os).isEqualTo(os1)
   }
 }
