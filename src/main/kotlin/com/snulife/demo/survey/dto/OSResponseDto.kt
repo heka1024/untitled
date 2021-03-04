@@ -8,5 +8,5 @@ data class OSResponseDto(
   val description: String,
   val price: Int?
 ) {
-  constructor(os: OS): this(id =os.id, name =os.name, description =os.description, price =os.price)
+  constructor(os: OS): this(id = os.id, name =os.name, description =os.description, price =os.price)
 }

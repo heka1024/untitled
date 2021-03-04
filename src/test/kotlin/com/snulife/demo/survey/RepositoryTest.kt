@@ -53,7 +53,7 @@ class RepositoryTest(@Autowired val surveyResultRepository: SurveyResultReposito
     val osList = osRepository.findAll()
 
     // then
-    val get = osList.get(0)
+    val get = osList[0]
     then(get.name).isEqualTo(os.name)
     then(get.description).isEqualTo(os.description)
     then(get.price).isEqualTo(os.price)
@@ -77,7 +77,7 @@ class RepositoryTest(@Autowired val surveyResultRepository: SurveyResultReposito
     surveyResultRepository.save(data)
 
     // when
-    val s = surveyResultRepository.findAll().get(0)
+    val s = surveyResultRepository.findAll()[0]
 
     // then
     then(s.grade).isEqualTo(data.grade)
