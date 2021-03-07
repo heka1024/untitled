@@ -8,10 +8,11 @@ data class OSCreateRequestDto(
   val price: Int?,
 ) {
   fun toEntity(): OS {
-    return OS(
+    val x = OS(
       name=name,
       description=description,
       price=price
     )
+    return x
   }
 }

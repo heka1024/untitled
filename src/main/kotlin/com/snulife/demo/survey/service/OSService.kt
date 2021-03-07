@@ -15,11 +15,10 @@ class OSService {
 
   @Transactional
   fun save(request: OSCreateRequestDto): Long? {
-    return osRepository
-      .save(request.toEntity())
-      .id
+    return osRepository.save(request.toEntity()).id
   }
 
+  @Transactional
   fun getAll(): List<OSResponseDto> {
     return osRepository.findAll().map { OSResponseDto(it) }
   }

@@ -15,6 +15,7 @@ import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 
 @ExtendWith(MockitoExtension::class)
 class OSServiceTest {
@@ -23,27 +24,6 @@ class OSServiceTest {
 
   @Mock
   private lateinit var osRepository: OSRepository
-
-  @Test
-  fun `저장 잘 되어야 함`() {
-    // given
-    val name = "우분투"
-    val description = "오픈소스"
-    val price = 3000
-
-    val req = OSCreateRequestDto(name=name, description=description, price=price)
-    val id = osService.save(req)
-
-    // when
-    println(osRepository.findAll())
-    val os = osRepository.findAll()[0]
-
-    // then
-    then(os.id).isEqualTo(id)
-    then(os.name).isEqualTo(name)
-    then(os.price).isEqualTo(price)
-    then(os.description).isEqualTo(description)
-  }
 
   @Test
   fun `결과 생성`() {
